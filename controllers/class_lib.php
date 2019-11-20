@@ -5,6 +5,7 @@ class Save_Data
     function save($file, $post)
     {
         $dir = '../upload/';
+
         if (!is_dir($dir)){
             mkdir($dir,0777,true);
         }
