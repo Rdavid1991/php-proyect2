@@ -5,9 +5,12 @@ class Save_Data
     function save($file, $post)
     {
         $dir = '../upload/';
+<<<<<<< HEAD
         if (!is_dir($dir)){
             mkdir($dir,0777,true);
         }
+=======
+>>>>>>> 6e70b2edef6758d0cf3f3a2185fbf9b09dc08f3c
 
         $info = new SplFileInfo($file['imagen']['name']);
 
