@@ -1,9 +1,14 @@
-<?php 
+<?php
 
-require('./main/header.php'); 
+require('./main/header.php');
 
-define('save','/proyecto_2/controllers/save_data.php');
+include("../class/productos.php");
 
+define('save', '/proyecto_2/controllers/save_data.php');
+define('img', '/proyecto_2/upload/');
+
+$consulta = new Productos();
+$productos = $consulta->consultar_productos()
 ?>
 
 <div class="container-fluid">
@@ -15,16 +20,41 @@ define('save','/proyecto_2/controllers/save_data.php');
             Agregar Producto
         </button>
     </div>
-
-
-    <div class="row">
-        <div class="col-3">
-
+    <?php foreach ($productos as $values) { ?>
+        <div class="d-flex justify-content-center">
+            <div class="row shadow p-3 mb-5 bg-white rounded" style="width: 60rem;">
+                <div class="col-3 d-flex align-items-center">
+                    <img src="<?php echo constant('img') . $values['nombre_img'] ?>" style="width: 10rem;" alt="" srcset="">
+                </div>
+                <div class="col-7 mt-4">
+                    <div class="d-flex justify-content-between">
+                        <h3>Nombre: </h3>
+                        <h3><?php echo $values['nombre_prod'] ?></h3>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h3>Descripcion:</h3>
+                        <h3><?php echo $values['descripcion_prod'] ?></h3>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h3>Tipo:</h3>
+                        <h3><?php echo $values['tipo_prod'] ?></h3>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h3>Precio:</h3>
+                        <h3><?php echo $values['precio_prod'] ?></h3>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="row m-5">
+                        <button class="btn btn-primary">Borrar</button>
+                    </div>
+                    <div class="row m-5">
+                        <button class="btn btn-primary">Editar</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-9">
-
-        </div>
-    </div>
+    <?php } ?>
 </div>
 
 <!-- Modal -->
@@ -38,11 +68,11 @@ define('save','/proyecto_2/controllers/save_data.php');
                 </button>
             </div>
 
-            <form action="<?php echo constant('save');?>" method="post" enctype="multipart/form-data">
+            <form action="<?php echo constant('save'); ?>" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="input-group ">
-                        <div class="custom-file" >
-                            <input type="file" class="custom-file-input" id="file-image" name="imagen" >
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="file-image" name="imagen">
                             <label class="custom-file-label" for="file-image">Seleccione un archivo</label>
                         </div>
                     </div>
@@ -72,6 +102,4 @@ define('save','/proyecto_2/controllers/save_data.php');
     </div>
 </div>
 
-<?php require('./main/footer.php');
-
-?>
+<?php require('./main/footer.php'); ?>
