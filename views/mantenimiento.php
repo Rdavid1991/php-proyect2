@@ -1,60 +1,117 @@
 <?php
 
 require('./main/header.php');
-
-include("../class/productos.php");
+include("../class/lib_class.php");
 
 define('save', '/proyecto_2/controllers/save_data.php');
 define('img', '/proyecto_2/upload/');
+define('swiper_js','../assets');
 
 $consulta = new Productos();
 $productos = $consulta->consultar_productos()
 ?>
 
+<style>
+    html,
+    body {
+        position: relative;
+        height: 100%;
+    }
+
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #000;
+        margin: 0;
+        padding: 0;
+    }
+
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+</style>
+
+
 <div class="container-fluid">
-    <div class="d-flex justify-content-between m-5">
-        <h1>Mantenimiento</h1>
+    <div class="d-flex justify-content-around m-2">
+        <h3>Mantenimiento</h3>
 
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalProducto">
             Agregar Producto
         </button>
     </div>
-    <?php foreach ($productos as $values) { ?>
-        <div class="d-flex justify-content-center">
-            <div class="row shadow p-3 mb-5 bg-white rounded" style="width: 60rem;">
-                <div class="col-3 d-flex align-items-center">
-                    <img src="<?php echo constant('img') . $values['nombre_img'] ?>" style="width: 10rem;" alt="" srcset="">
-                </div>
-                <div class="col-7 mt-4">
-                    <div class="d-flex justify-content-between">
-                        <h3>Nombre: </h3>
-                        <h3><?php echo $values['nombre_prod'] ?></h3>
+
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+
+            <?php
+            if ($productos) {
+                foreach ($productos as $values) {
+                    ?>
+
+                    <div class="swiper-slide">
+                        <div class="m-2" style="height:30rem;">
+
+                            <img src="<?php echo constant('img') . $values['nombre_img'] ?>" style="width: 20rem;" alt="" class="img-thumbnail">
+
+                            <div class="m-4">
+                                <div class="d-flex justify-content-between">
+                                    <p>Nombre: </p>
+                                    <p><?php echo $values['nombre_prod'] ?></p>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p>Tipo:</p>
+                                    <p><?php echo $values['tipo_prod'] ?></p>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p>Precio:</p>
+                                    <p><?php echo $values['precio_prod'] ?></p>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p>Descripcion:</p>
+                                    <p><?php echo $values['descripcion_prod'] ?></p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-primary">Borrar</button>
+                                <button class="btn btn-primary">Editar</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <h3>Descripcion:</h3>
-                        <h3><?php echo $values['descripcion_prod'] ?></h3>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <h3>Tipo:</h3>
-                        <h3><?php echo $values['tipo_prod'] ?></h3>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <h3>Precio:</h3>
-                        <h3><?php echo $values['precio_prod'] ?></h3>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="row m-5">
-                        <button class="btn btn-primary">Borrar</button>
-                    </div>
-                    <div class="row m-5">
-                        <button class="btn btn-primary">Editar</button>
-                    </div>
-                </div>
-            </div>
+            <?php
+                }
+            }
+            ?>
         </div>
-    <?php } ?>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
 </div>
 
 <!-- Modal -->
@@ -101,5 +158,24 @@ $productos = $consulta->consultar_productos()
         </div>
     </div>
 </div>
+
+<script src="<?php echo constant('swiper_js').'/js/swiper.min.js' ?>"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 4,
+        spaceBetween: 30,
+        slidesPerGroup: 3,
+        loop: false,
+        loopFillGroupWithBlank: false,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
 
 <?php require('./main/footer.php'); ?>

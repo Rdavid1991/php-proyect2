@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `imagen_producto` (
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_producto`(
 	IN `nombre` VARCHAR(10),
-	IN `description` VARCHAR(150),
+	IN `descripcion` VARCHAR(150),
 	IN `tipo` VARCHAR(10),
 	IN `precio` VARCHAR(10)
 
