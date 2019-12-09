@@ -5,10 +5,10 @@ include("../class/lib_class.php");
 
 define('img', '/proyecto_2/upload/');
 define('swiper_js', '../assets');
-define('delete', '/proyecto_2/controllers/archive_data.php');
+define('delete', '/proyecto_2/controllers/active_data.php');
 
 $consulta = new Productos();
-$productos = $consulta->consultar_productos()
+$productos = $consulta->consultar_productos_archivados()
 ?>
 
 <style>
@@ -55,14 +55,9 @@ $productos = $consulta->consultar_productos()
 
 <div class="container-fluid">
     <div class="d-flex justify-content-around m-2">
-        <h3>Mantenimiento</h3>
+        <h3>Archivados</h3>
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalProducto" onclick="cleanPreview()">
-            Agregar Producto
-        </button>
-
-        <a class="btn btn-primary" href="archivados.php">Ver archivados</a>
     </div>
 
     <div class="swiper-container">
@@ -100,7 +95,7 @@ $productos = $consulta->consultar_productos()
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <a class="btn btn-primary" href="<?php echo constant('delete') . "?id=" . $values['id']; ?>">Borrar</a>
+                                <a class="btn btn-primary" href="<?php echo constant('delete') . "?id=" . $values['id']; ?>">Activar</a>
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#modalEditar" onclick="editarProducto(this)">Editar</button>
                             </div>
                         </div>

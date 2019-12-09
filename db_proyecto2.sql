@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Versión del servidor:         10.4.8-MariaDB - mariadb.org binary distribution
--- SO del servidor:              Win64
--- HeidiSQL Versión:             10.2.0.5599
+-- Server version:               10.4.8-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
+-- HeidiSQL Version:             10.2.0.5599
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -12,30 +12,80 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- Volcando estructura de base de datos para proyecto_2_php
+-- Dumping database structure for proyecto_2_php
+DROP DATABASE IF EXISTS `proyecto_2_php`;
 CREATE DATABASE IF NOT EXISTS `proyecto_2_php` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci */;
 USE `proyecto_2_php`;
 
--- Volcando estructura para procedimiento proyecto_2_php.consultar_id
+-- Dumping structure for procedure proyecto_2_php.active_product
+DROP PROCEDURE IF EXISTS `active_product`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_id`(
-	IN `nombre` VARCHAR(10)
-
+CREATE DEFINER=`root`@`localhost` PROCEDURE `active_product`(
+	IN `param_id` INT
 )
-    NO SQL
-select id from producto where nombre = nombre//
+BEGIN
+UPDATE producto
+	SET state = "0" 
+	WHERE id = param_id;
+END//
 DELIMITER ;
 
--- Volcando estructura para procedimiento proyecto_2_php.consultar_productos
+-- Dumping structure for procedure proyecto_2_php.archive_product
+DROP PROCEDURE IF EXISTS `archive_product`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `archive_product`(
+	IN `param_id` INT
+
+
+
+)
+BEGIN
+UPDATE producto
+	SET state = "1" 
+	WHERE id = param_id;
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure proyecto_2_php.consultar_productos
+DROP PROCEDURE IF EXISTS `consultar_productos`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_productos`()
     NO SQL
-select * from producto as pd
-inner join imagen_producto as ip
-	on ip.id_producto = pd.id//
+select * from producto where state = 0//
 DELIMITER ;
 
--- Volcando estructura para tabla proyecto_2_php.empeado
+-- Dumping structure for procedure proyecto_2_php.consultar_productos_archivados
+DROP PROCEDURE IF EXISTS `consultar_productos_archivados`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_productos_archivados`()
+    NO SQL
+select * from producto where state = 1//
+DELIMITER ;
+
+-- Dumping structure for procedure proyecto_2_php.consult_image_name
+DROP PROCEDURE IF EXISTS `consult_image_name`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `consult_image_name`(
+	IN `id_param` INT
+)
+    NO SQL
+select imagen_prod from producto where id = id_param//
+DELIMITER ;
+
+-- Dumping structure for procedure proyecto_2_php.delete_producto
+DROP PROCEDURE IF EXISTS `delete_producto`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_producto`(
+	IN `param_id` INT
+
+)
+BEGIN
+	DELETE FROM producto where id = param_id;
+END//
+DELIMITER ;
+
+-- Dumping structure for table proyecto_2_php.empeado
+DROP TABLE IF EXISTS `empeado`;
 CREATE TABLE IF NOT EXISTS `empeado` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_empleado` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '0',
@@ -44,70 +94,84 @@ CREATE TABLE IF NOT EXISTS `empeado` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
--- La exportación de datos fue deseleccionada.
+-- Data exporting was unselected.
 
--- Volcando estructura para procedimiento proyecto_2_php.guardar_imagen
-DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `guardar_imagen`(
-	IN `nombre` VARCHAR(50),
-	IN `id` VARCHAR(10)
-
-
-
-)
-    NO SQL
-insert INTO 
-imagen_producto (nombre_img,id_producto)
-VALUES (nombre,id)//
-DELIMITER ;
-
--- Volcando estructura para tabla proyecto_2_php.imagen_producto
-CREATE TABLE IF NOT EXISTS `imagen_producto` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre_img` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '',
-  `id_producto` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- La exportación de datos fue deseleccionada.
-
--- Volcando estructura para procedimiento proyecto_2_php.insertar_producto
+-- Dumping structure for procedure proyecto_2_php.insertar_producto
+DROP PROCEDURE IF EXISTS `insertar_producto`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_producto`(
 	IN `nombre` VARCHAR(10),
+	IN `imagen` VARCHAR(15),
+	IN `descripcion` VARCHAR(150),
+	IN `tipo` VARCHAR(10),
+	IN `precio` VARCHAR(10)
+
+)
+    NO SQL
+INSERT INTO 
+producto (nombre_prod ,imagen_prod, descripcion_prod , tipo_prod , precio_prod)
+VALUES (nombre ,imagen, descripcion , tipo , precio)//
+DELIMITER ;
+
+-- Dumping structure for table proyecto_2_php.producto
+DROP TABLE IF EXISTS `producto`;
+CREATE TABLE IF NOT EXISTS `producto` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_prod` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `imagen_prod` varchar(15) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `descripcion_prod` varchar(150) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `tipo_prod` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '' COMMENT 'Combo, Individual',
+  `precio_prod` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `state` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci COMMENT='Contiene los datos de los productos a vender';
+
+-- Data exporting was unselected.
+
+-- Dumping structure for procedure proyecto_2_php.save_ventas
+DROP PROCEDURE IF EXISTS `save_ventas`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `save_ventas`(
+	IN `id_param` INT,
+	IN `precio_param` DOUBLE
+)
+BEGIN
+	insert into ventas_empleado (id_producto, precio, fecha) value (id_param, precio_param, (SELECT NOW()));
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure proyecto_2_php.update_producto
+DROP PROCEDURE IF EXISTS `update_producto`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update_producto`(
+	IN `param_id` INT,
+	IN `nombre` VARCHAR(10),
+	IN `imagen` VARCHAR(15),
 	IN `descripcion` VARCHAR(150),
 	IN `tipo` VARCHAR(10),
 	IN `precio` VARCHAR(10)
 
 
+
 )
     NO SQL
-INSERT INTO 
-producto (nombre_prod , descripcion_prod , tipo_prod , precio_prod)
-VALUES (nombre , descripcion , tipo , precio)//
+BEGIN
+	UPDATE producto
+	SET nombre_prod = nombre, imagen_prod = imagen, descripcion_prod = descripcion, tipo_prod = tipo, precio_prod = precio 
+	WHERE id = param_id;
+END//
 DELIMITER ;
 
--- Volcando estructura para tabla proyecto_2_php.producto
-CREATE TABLE IF NOT EXISTS `producto` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre_prod` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `descripcion_prod` varchar(150) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
-  `tipo_prod` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '' COMMENT 'Combo, Individual',
-  `precio_prod` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci COMMENT='Contiene los datos de los productos a vender';
-
--- La exportación de datos fue deseleccionada.
-
--- Volcando estructura para tabla proyecto_2_php.ventas_empleado
+-- Dumping structure for table proyecto_2_php.ventas_empleado
+DROP TABLE IF EXISTS `ventas_empleado`;
 CREATE TABLE IF NOT EXISTS `ventas_empleado` (
   `id_producto` int(11) NOT NULL,
-  `id_empleado` int(11) NOT NULL,
-  `precio` int(11) NOT NULL,
+  `id_empleado` int(11) DEFAULT NULL,
+  `precio` double NOT NULL DEFAULT 0,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
--- La exportación de datos fue deseleccionada.
+-- Data exporting was unselected.
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

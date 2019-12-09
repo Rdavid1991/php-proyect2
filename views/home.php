@@ -66,10 +66,10 @@ $productos = $consulta->consultar_productos()
                     if ($productos) {
                         $code = 0;
                         foreach ($productos as $values) {?>
-                            <div class="swiper-slide  border_rounded" id="box<?php echo $code ?>" onclick="comprar(this)">
+                            <div class="swiper-slide  border_rounded" id="box<?php echo $code ?>" onclick="comprar(this, <?php echo $values['id'] ?>)">
                                 <div class="m-1" style="height:100%;">
 
-                                    <img src="<?php echo constant('index_img') . $values['nombre_img'] ?>" style="width: 15rem;" alt="" class="img-thumbnail m-2">
+                                    <img src="<?php echo constant('index_img') . $values['imagen_prod'] ?>" style="width: 15rem; height:10rem" alt="" class="img-thumbnail m-2">
 
                                     <div class="mx-5">
                                         <div class="d-flex justify-content-between">

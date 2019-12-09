@@ -18,34 +18,24 @@ class Productos extends coneccion
             return $productos;
         }
     }
-}
 
-class Save_Image extends coneccion
-{
-    public function __construct()
+    function consultar_productos_archivados()
     {
-        parent::__construct();
-    }
-
-    function consult_id($nombre)
-    {
-        $instruccion = "CALL consultar_id('" . $nombre . "')";
-        $id = $this->_db->query($instruccion)->fetch_all(MYSQLI_ASSOC);
-        if ($id) {
-            return $id;
-            $id->close();
+        $instruccion = "CALL consultar_productos_archivados()";
+        $productos = $this->_db->query($instruccion)->fetch_all(MYSQLI_ASSOC);
+        if ($productos) {
             $this->_db->close();
+            return $productos;
         }
     }
 
-    function save_image($nombre, $idprod)
+    function consult_image_name($id)
     {
-        $instruccion = "CALL guardar_imagen('" . $nombre . "','" . $idprod . "')";
-        $imagen = $this->_db->query($instruccion);
-        if ($imagen) {
-            return $imagen;
-            $imagen->close();
+        $instruccion = "CALL consult_image_name('" . $id . "')";
+        $productos = $this->_db->query($instruccion)->fetch_all(MYSQLI_ASSOC);
+        if ($productos) {
             $this->_db->close();
+            return $productos;
         }
     }
 }
@@ -57,14 +47,80 @@ class Save_Products extends coneccion
         parent::__construct();
     }
 
-    function save_product($nombre, $descripcion, $tipo, $precio)
+    function save_product($nombre, $imagen, $descripcion, $tipo, $precio)
     {
-
-        echo $nombre;
-        $instruccion = "CALL insertar_producto('" . $nombre . "','" . $descripcion . "','" . $tipo . "','" . $precio . "')";
+        $instruccion = "CALL insertar_producto('" . $nombre . "','" .  $imagen .   "','" . $descripcion . "','" . $tipo . "','" . $precio . "')";
         $producto = $this->_db->query($instruccion);
 
         echo $nombre;
+        if ($producto) {
+            return $producto;
+            $producto->close();
+            $this->_db->close();
+        }
+    }
+
+    function save_product_acount($id, $precio)
+    {
+        $instruccion = "CALL save_ventas('" . $id . "','" . $precio . "')";
+        $producto = $this->_db->query($instruccion);
+
+        if ($producto) {
+            return $producto;
+            $producto->close();
+            $this->_db->close();
+        }
+    }
+}
+
+class Update_Products extends coneccion
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    function update_product($id, $nombre, $imagen, $descripcion, $tipo, $precio)
+    {
+        $instruccion = "CALL update_producto('" . $id . "','" . $nombre . "','" .  $imagen .   "','" . $descripcion . "','" . $tipo . "','" . $precio . "')";
+        $producto = $this->_db->query($instruccion);
+
+        if ($producto) {
+            return $producto;
+            $producto->close();
+            $this->_db->close();
+        }
+    }
+
+    function delete_product($id)
+    {
+        $instruccion = "CALL delete_producto('" . $id . "')";
+        $producto = $this->_db->query($instruccion);
+
+        if ($producto) {
+            return $producto;
+            $producto->close();
+            $this->_db->close();
+        }
+    }
+
+    function archive_product($id)
+    {
+        $instruccion = "CALL archive_product('" . $id . "')";
+        $producto = $this->_db->query($instruccion);
+
+        if ($producto) {
+            return $producto;
+            $producto->close();
+            $this->_db->close();
+        }
+    }
+
+    function active_product($id)
+    {
+        $instruccion = "CALL active_product('" . $id . "')";
+        $producto = $this->_db->query($instruccion);
+
         if ($producto) {
             return $producto;
             $producto->close();

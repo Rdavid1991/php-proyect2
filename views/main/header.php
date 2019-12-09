@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<?php echo constant('assets_css').'/css/bootstrap.min.css'; ?>">
     <link rel="stylesheet" href="<?php echo constant('assets_css').'/css/swiper.min.css'; ?>">
     <link rel="stylesheet" href="<?php echo constant('assets_css').'/css/style.css'; ?>">
+    <link rel="stylesheet" href="<?php echo constant('assets_css').'/css/all.min.css'; ?>">
     <title>Document</title>
 </head>
 <body>

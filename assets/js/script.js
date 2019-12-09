@@ -5,7 +5,9 @@ var total = 0
 
 var delete_node
 
-function comprar(val) {
+var boxData
+
+function comprar(val, id) {
 
     nombre = val.childNodes[1].childNodes[3].childNodes[1].childNodes[1];
     precio = val.childNodes[1].childNodes[3].childNodes[1].childNodes[3];
@@ -13,43 +15,112 @@ function comprar(val) {
     var element = document.getElementById("cuenta");
 
     var div = document.createElement("div");
-    div.setAttribute("class", "d-flex justify-content-around");
+    div.setAttribute("class", "d-flex justify-content-around align-items-center");
     div.setAttribute("id", "cuenta_" + val.id);
 
     //Nodo nombre
-    var node_nombre = document.createElement("input");
-    node_nombre.setAttribute("name", "nombre" + countprod);
-    node_nombre.setAttribute("type", "text");
-    node_nombre.setAttribute("value", nombre.textContent);
-    node_nombre.setAttribute("class", "input_class font-weight-bold shadow-sm bg-white rounded");
-    div.appendChild(node_nombre);
+    var nombre_hiden = document.createElement("input");
+    nombre_hiden.setAttribute("name", "nombre" + countprod);
+    nombre_hiden.setAttribute("type", "hidden");
+    nombre_hiden.setAttribute("value", nombre.textContent);
 
+    var node_nombre = document.createElement("h5")
+    node_nombre.innerHTML = nombre.textContent
+    node_nombre.setAttribute("class", "font-weight-bold shadow-sm bg-white rounded");
+    div.appendChild(node_nombre);
+    div.appendChild(nombre_hiden);
+
+    //node borrar
     var node_borrar = document.createElement("div");
+    node_borrar.innerHTML = '<i class="fas fa-trash"></i>'
     node_borrar.setAttribute("id", val.id);
     node_borrar.setAttribute("class", "btn btn-danger");
     node_borrar.addEventListener("click", function () {
         var element = document.getElementById("cuenta_" + this.id).parentNode;
         delete_node = document.getElementById("cuenta_" + this.id)
-        total -= delete_node.childNodes[2].value;
+        total -= delete_node.childNodes[3].textContent;
         document.getElementById("total").innerHTML = total.toFixed(2) + " $"
-
         element.removeChild(delete_node);
     })
+    var id_hidden = document.createElement("input");
+    id_hidden.setAttribute("type", "hidden");
+    id_hidden.setAttribute("name", "id"+countprod);
+    id_hidden.setAttribute("value", id);
     div.appendChild(node_borrar);
+    div.appendChild(id_hidden);
 
     //Noddo precio
-    var node_precio = document.createElement("input");
-    node_precio.setAttribute("name", "precio" + countprod);
-    node_precio.setAttribute("type", "text");
-    node_precio.setAttribute("value", precio.textContent);
-    node_precio.setAttribute("class", "input_class font-weight-bold shadow-sm bg-white rounded");
-    div.appendChild(node_precio)
+    var precio_hidden = document.createElement("input");
+    precio_hidden.setAttribute("name", "precio" + countprod);
+    precio_hidden.setAttribute("type", "hidden");
+    precio_hidden.setAttribute("value", precio.textContent);
+
+    var node_precio = document.createElement("h5")
+    node_precio.innerHTML = precio.textContent;
+    node_precio.setAttribute("class", "font-weight-bold shadow-sm bg-white rounded");
+    div.appendChild(node_precio);
+    div.appendChild(precio_hidden);
+
     element.appendChild(div);
-
     countprod += 1;
-
     total += parseFloat(precio.textContent);
     document.getElementById("total").innerHTML = total.toFixed(2)
-
-    console.log(nombre)
 }
+
+function editarProducto(button) {
+    boxData = button.parentNode.parentNode.childNodes[3];
+    var id = boxData.parentNode.childNodes[1].childNodes[5].value
+
+    var img = boxData.parentNode.childNodes[1].childNodes[3].value
+    var nombre = boxData.childNodes[1].childNodes[3].textContent
+    var tipo = boxData.childNodes[3].childNodes[3].textContent
+    var precio = boxData.childNodes[5].childNodes[3].textContent
+    var descripcion = boxData.childNodes[7].childNodes[3].textContent
+
+    $('#uploadFormEdit + img').remove();
+    $('#uploadFormEdit').after('<img src="' + img + '" style="width: 200px; height: 200px;">');
+
+    $("#editNombre").val(nombre)
+    //document.getElementById("editTipo").value = tipo
+    $("#editPrecio").val(precio)
+    $("#editDescripcion").val(descripcion)
+    $("#idDelete").val(id)
+
+}
+
+function cleanPreview() {
+    $('#uploadFormSave + img').remove();
+    $('#uploadFormSave').after('<img src="/proyecto_2/assets/img/preview.png" style="width: 200px; height: 200px;">');
+}
+
+function filePreviewSave(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.readAsDataURL(input.files[0]);
+        reader.onload = function (e) {
+            $('#uploadFormSave + img').remove();
+            $('#uploadFormSave').after('<img src="' + e.target.result + '" style="width: 200px; height: 200px;" />');
+        }
+    }
+    input.files = null
+}
+
+function filePreviewEdit(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.readAsDataURL(input.files[0]);
+        reader.onload = function (e) {
+            $('#uploadFormEdit + img').remove();
+            $('#uploadFormEdit').after('<img src="' + e.target.result + '" style="width: 200px; height: 200px;" />');
+        }
+    }
+    input.files = null
+}
+
+$("#file-image-save").change(function () {
+    filePreviewSave(this);
+});
+
+$("#file-image-edit").change(function () {
+    filePreviewEdit(this);
+});

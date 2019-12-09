@@ -13,3 +13,20 @@
     -moz-border-radius: 36px 36px 36px 36px;
     -webkit-border-radius: 36px 36px 36px 36px;
 }
+
+.preview-position{
+    width: 20rem;
+    height: 20rem;
+    position: absolute;
+    margin-left: 21rem;
+}
+
+th{
+    width: 15rem;
+    font-size: 24px
+}
+
+td{
+    font-size: 18px;
+}
+
