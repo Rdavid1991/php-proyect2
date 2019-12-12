@@ -46,6 +46,31 @@ UPDATE producto
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure proyecto_2_php.consultar_nombre
+DROP PROCEDURE IF EXISTS `consultar_nombre`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_nombre`(
+	IN `inicio_param` DATE,
+	IN `fin_param` DATE
+
+
+
+)
+BEGIN
+	SELECT 
+		count(ve.id_producto) cantidad,
+		SUM(ve.precio) suma,
+		ve.precio p_venta,
+		pd.nombre_prod prod,
+		ve.fecha fecha
+	FROM producto pd
+	INNER JOIN ventas_empleado ve
+		ON ve.id_producto = pd.id
+	WHERE ve.fecha between inicio_param AND fin_param
+	GROUP BY pd.nombre_prod, ve.precio;
+END//
+DELIMITER ;
+
 -- Dumping structure for procedure proyecto_2_php.consultar_productos
 DROP PROCEDURE IF EXISTS `consultar_productos`;
 DELIMITER //
@@ -60,6 +85,32 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_productos_archivados`()
     NO SQL
 select * from producto where state = 1//
+DELIMITER ;
+
+-- Dumping structure for procedure proyecto_2_php.consultar_tipo
+DROP PROCEDURE IF EXISTS `consultar_tipo`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_tipo`(
+	IN `inicio_param` DATE,
+	IN `fin_param` DATE
+
+
+
+)
+BEGIN
+	SELECT 
+	count(ve.id_producto) cantidad,
+SUM(ve.precio) suma,
+ve.precio p_venta,
+pd.tipo_prod prod,
+ve.fecha fecha
+FROM producto pd
+INNER JOIN ventas_empleado ve
+ON ve.id_producto = pd.id
+WHERE ve.fecha between inicio_param AND fin_param
+GROUP BY pd.tipo_prod,ve.precio;
+
+END//
 DELIMITER ;
 
 -- Dumping structure for procedure proyecto_2_php.consult_image_name
@@ -78,9 +129,12 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_producto`(
 	IN `param_id` INT
 
+
+
 )
 BEGIN
-	DELETE FROM producto where id = param_id;
+	DELETE FROM producto where id = param_id ;
+	DELETE FROM ventas_empleado where id_producto = param_id;
 END//
 DELIMITER ;
 
@@ -124,9 +178,19 @@ CREATE TABLE IF NOT EXISTS `producto` (
   `precio_prod` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
   `state` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci COMMENT='Contiene los datos de los productos a vender';
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci COMMENT='Contiene los datos de los productos a vender';
 
 -- Data exporting was unselected.
+
+-- Dumping structure for procedure proyecto_2_php.reporte
+DROP PROCEDURE IF EXISTS `reporte`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `reporte`()
+BEGIN
+
+
+END//
+DELIMITER ;
 
 -- Dumping structure for procedure proyecto_2_php.save_ventas
 DROP PROCEDURE IF EXISTS `save_ventas`;
