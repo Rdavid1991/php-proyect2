@@ -28,7 +28,7 @@ $productos = $consulta->consultar_productos()
     }
 
     .swiper-container {
-        width: 100%;
+        width: 90%;
         height: 100%;
     }
 
@@ -51,7 +51,6 @@ $productos = $consulta->consultar_productos()
         align-items: center;
     }
 </style>
-
 
 <div class="container-fluid">
     <div class="d-flex justify-content-around m-2">
@@ -113,9 +112,9 @@ $productos = $consulta->consultar_productos()
         <!-- Add Pagination -->
         <div class=" swiper-pagination"></div>
         <!-- Add Arrows -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
     </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
 
 </div>
 
@@ -133,6 +132,7 @@ $productos = $consulta->consultar_productos()
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
+            type: 'progressbar'
         },
         navigation: {
             nextEl: '.swiper-button-next',

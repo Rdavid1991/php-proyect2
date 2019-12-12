@@ -1,6 +1,7 @@
 <?php 
     define('assets_css','/proyecto_2/assets');
     define('mantenimiento','/proyecto_2/views/mantenimiento.php');
+    define('reporte','/proyecto_2/views/reporte.php');
     define('home','/proyecto_2/views/home.php');
 ?>
 
@@ -26,6 +27,9 @@
   <ul>
   <li class="nav-item">
         <a class="nav-link" href="<?php echo constant('mantenimiento');?>">Mantenimiento</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="<?php echo constant('reporte');?>">Reporte</a>
     </li>
   </ul>
 </nav>

@@ -98,7 +98,7 @@ $productos = $consulta->consultar_productos()
 
         <div class="col-3 mt-2 text-center">
             <h4 class="text-center">Cuenta</h4>
-            <form action="prueba.php" id="cuenta" method="post">
+            <form action="cuenta.php" id="cuenta" method="post">
                 <div class="input-group d-flex justify-content-between">
                     <input type="submit" class="btn btn-success" value="Confirmar">
                     <label class="font-weight-bold">Total</label>
@@ -108,8 +108,6 @@ $productos = $consulta->consultar_productos()
                     <h4 class="font-weight-bold">Producto</h4>
                     <h4 class="font-weight-bold">Precio</h4>
                 </div>
-
-
             </form>
         </div>
 
@@ -127,6 +125,7 @@ $productos = $consulta->consultar_productos()
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
+            type: 'progressbar'
         },
     });
 </script>

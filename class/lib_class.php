@@ -128,3 +128,30 @@ class Update_Products extends coneccion
         }
     }
 }
+
+class Report extends coneccion{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    function consultar_tipo($inicio,$fin)
+    {
+        $instruccion = "CALL consultar_tipo('".$inicio."','".$fin."')";
+        $productos = $this->_db->query($instruccion)->fetch_all(MYSQLI_ASSOC);
+        if ($productos) {
+            $this->_db->close();
+            return $productos;
+        }
+    }
+
+    function consultar_nombre($inicio,$fin)
+    {
+        $instruccion = "CALL consultar_nombre('".$inicio."','".$fin."')";
+        $productos = $this->_db->query($instruccion)->fetch_all(MYSQLI_ASSOC);
+        if ($productos) {
+            $this->_db->close();
+            return $productos;
+        }
+    }
+}

@@ -5,6 +5,11 @@
 <script src="<?php echo constant('assets_js').'/js/bootstrap.min.js' ?>"></script>
 <script src="<?php echo constant('assets_js').'/js/all.min.js'?>"></script>
 <script src="<?php echo constant('assets_js').'/js/script.js'?>"></script>
-
+<script>
+    $('#datepicker').datepicker({
+        uiLibrary: 'bootstrap4',
+        locale: 'en-en',
+    });
+</script>
 </body>
 </html>

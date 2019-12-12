@@ -5,7 +5,8 @@ include("../class/lib_class.php");
 
 define('img', '/proyecto_2/upload/');
 define('swiper_js', '../assets');
-define('delete', '/proyecto_2/controllers/active_data.php');
+define('activate', '/proyecto_2/controllers/active_data.php');
+define('delete', '/proyecto_2/controllers/delete_data.php');
 
 $consulta = new Productos();
 $productos = $consulta->consultar_productos_archivados()
@@ -95,8 +96,9 @@ $productos = $consulta->consultar_productos_archivados()
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <a class="btn btn-primary" href="<?php echo constant('delete') . "?id=" . $values['id']; ?>">Activar</a>
+                                <a class="btn btn-primary" href="<?php echo constant('activate') . "?id=" . $values['id']; ?>">Activar</a>
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#modalEditar" onclick="editarProducto(this)">Editar</button>
+                                <a class="btn btn-danger" href="<?php echo constant('delete') . "?id=" . $values['id']; ?>">Delete</a>
                             </div>
                         </div>
                     </div>
