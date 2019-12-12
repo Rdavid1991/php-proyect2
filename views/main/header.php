@@ -19,12 +19,12 @@
 </head>
 <body>
 
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="<?php echo constant('home');?>">
     <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="Proy 2">
   </a>
 
-  <ul>
+  <ul class="navbar-nav">
   <li class="nav-item">
         <a class="nav-link" href="<?php echo constant('mantenimiento');?>">Mantenimiento</a>
     </li>

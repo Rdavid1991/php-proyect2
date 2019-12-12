@@ -73,14 +73,12 @@ $productos = $consulta->consultar_productos()
 
                                     <div class="mx-5">
                                         <div class="d-flex justify-content-between">
-                                            <p><?php echo $values['nombre_prod'] ?></p>
-                                            <p><?php echo $values['precio_prod'] ?></p>
-
+                                            <p id="producto<?php echo $values['id'] ?>"><?php echo $values['nombre_prod'] ?></p>
+                                            <p id="precio<?php echo $values['id'] ?>"><?php echo $values['precio_prod'] ?></p>
                                         </div>
                                         <div class="d-flex justify-content-between">
                                             <p><?php echo $values['descripcion_prod'] ?></p>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

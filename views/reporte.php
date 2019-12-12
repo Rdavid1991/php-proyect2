@@ -14,10 +14,10 @@ if (array_key_exists("button", $_POST)) {
 
 ?>
 
-<div class="container mt-5">
+<div class="container mt-3">
 
-    <div class="">
-        <form action="reporte.php" method="post" class="d-flex justify-content-around">
+    <div class="border rounded-pill shadow p-3">
+        <form action="reporte.php" method="post" class="d-flex justify-content-around align-items-center">
             <div class="custom-control custom-radio">
                 <input type="radio" id="customRadio1" name="radio" value="nombre" class="custom-control-input" required>
                 <label class="custom-control-label" for="customRadio1">Nombre</label>
@@ -26,26 +26,25 @@ if (array_key_exists("button", $_POST)) {
                 <input type="radio" id="customRadio2" name="radio" value="tipo" class="custom-control-input" required>
                 <label class="custom-control-label" for="customRadio2">Tipo</label>
             </div>
-            <div class="form-group d-flex align-items-center">
-                <input type="date" id="datepicker" name="inicio">
-                <p>Inico</p>
+            <div class="custom-control">
+                <input type="date" id="datepicker" name="inicio">Inico
             </div>
-            <div class="form-group d-flex align-items-center">
-                <input type="date" id="datepicker" name="fin">
-                <p>Fin</p>
+            <div class="custom-control ">
+                <input type="date" id="datepicker" name="fin">Fin
             </div>
-            <div class="form-group d-flex align-items-center">
-                <input type="submit" name="button" value="Filtrar">
+            <div class="custom-control">
+                <input type="submit" class="btn btn-success" name="button" value="Filtrar">
             </div>
         </form>
     </div>
 
-    <?php if (sizeof($consult) > 0) { ?>
+    <?php if ($consult && sizeof($consult) > 0) { ?>
         <div class="text-center">
-            <h1 class="m-5">Reporte por <?php echo $_POST['radio'] ?></h1>
+            <h1 class="mt-5">Reporte por <?php echo $_POST['radio'] ?></h1>
+            <h2><?php echo $_POST['inicio']." / ".$_POST['fin']?></h2>
         </div>
         <div class="d-flex justify-content-center">
-            <table>
+            <table class="table table-striped shadow text-center">
                 <thead>
                     <tr>
                         <?php if ($_POST['radio'] == "tipo") { ?>
@@ -63,10 +62,10 @@ if (array_key_exists("button", $_POST)) {
                 <tbody>
                     <?php foreach ($consult as $value) { ?>
                         <tr>
-                            <td><?php echo $value['prod'] ?></td>
+                            <th><?php echo $value['prod'] ?></th>
                             <td><?php echo $value['cantidad'] ?></td>
-                            <td><?php echo number_format($value['suma'], 2, '.', '') ?></td>
-                            <td><?php echo number_format($value['p_venta'], 2, '.', '') ?></td>
+                            <td><?php echo number_format($value['suma'], 2, '.', '') ?><span>$</span></td>
+                            <td><?php echo number_format($value['p_venta'], 2, '.', '') ?><span>$</span></td>
                             <td><?php echo $value['fecha'] ?></td>
                         </tr>
                     <?php
@@ -74,9 +73,9 @@ if (array_key_exists("button", $_POST)) {
                         }
                         ?>
                     <tr>
-                        <td>Total recaudado</td>
+                        <th>Total recaudado</th>
                         <td></td>
-                        <td><?php echo number_format($total, 2, '.', '') ?></td>
+                        <th><?php echo number_format($total, 2, '.', '') ?><span>$</span></th>
                     </tr>
                 </tbody>
             </table>
