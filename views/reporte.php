@@ -65,8 +65,8 @@ if (array_key_exists("button", $_POST)) {
                         <tr>
                             <td><?php echo $value['prod'] ?></td>
                             <td><?php echo $value['cantidad'] ?></td>
-                            <td><?php echo $value['suma'] ?></td>
-                            <td><?php echo $value['p_venta'] ?></td>
+                            <td><?php echo number_format($value['suma'], 2, '.', '') ?></td>
+                            <td><?php echo number_format($value['p_venta'], 2, '.', '') ?></td>
                             <td><?php echo $value['fecha'] ?></td>
                         </tr>
                     <?php
@@ -76,7 +76,7 @@ if (array_key_exists("button", $_POST)) {
                     <tr>
                         <td>Total recaudado</td>
                         <td></td>
-                        <td><?php echo $total ?></td>
+                        <td><?php echo number_format($total, 2, '.', '') ?></td>
                     </tr>
                 </tbody>
             </table>

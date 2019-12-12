@@ -1,9 +1,8 @@
 <?php
 define('save', '/proyecto_2/controllers/save_acount.php');
-
-print_r($_POST);
-
+//print_r($_POST);
 $array = array();
+$total = 0;
 
 foreach ($_POST as $value) {
     array_push($array, $value);
@@ -38,7 +37,14 @@ require('./main/header.php');
                                         <input type="hidden" name="precio<?php echo $i ?>" value="<?php print($array[$i + 1]); ?>">
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            <?php
+                                $total = number_format($total + floatval($array[$i + 1]), 2, '.', '');
+                            }
+                            ?>
+                             <tr>
+                                 <td>Total a pagar</td>
+                                 <td><?php echo $total ?></td>
+                            </tr>
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-around">

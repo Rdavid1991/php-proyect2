@@ -30,7 +30,6 @@ class Save_Class
 
         //save file in directory with the new name
         move_uploaded_file($file['imagen']['tmp_name'], $dir . $fileName);
-        header('Location:/proyecto_2/views/mantenimiento.php');
     }
 }
 
@@ -84,7 +83,5 @@ class Acount_Class
                 $prod->save_product_acount($array[$i], $array[$i + 1]);
             }
         }
-
-        header('Location:/proyecto_2/views/mantenimiento.php');
     }
 }

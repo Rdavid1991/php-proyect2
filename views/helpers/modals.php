@@ -70,7 +70,7 @@ define('edit', '/proyecto_2/controllers/edit_data.php');
                 <div class="modal-body" style="width: 23rem;">
                     <div class="input-group ">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="file-image-edit" onchange="filePreview(this)" name="imagen" required>
+                            <input type="file" class="custom-file-input" id="file-image-edit" onchange="filePreview(this)" name="imagen" >
                             <label class="custom-file-label" for="file-image">Seleccione un archivo</label>
                             <input type="hidden" id="idDelete" name="idDelete" value="">
                         </div>
