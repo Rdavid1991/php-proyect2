@@ -60,9 +60,9 @@ class Save_Products extends coneccion
         }
     }
 
-    function save_product_acount($id, $precio)
+    function save_product_acount($id, $precio,$iduser)
     {
-        $instruccion = "CALL save_ventas('" . $id . "','" . $precio . "')";
+        $instruccion = "CALL save_sales('" . $id . "','" . $precio . "','" . $iduser . "')";
         $producto = $this->_db->query($instruccion);
 
         if ($producto) {

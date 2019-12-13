@@ -69,25 +69,25 @@ function comprar(val, id) {
     document.getElementById("total").innerHTML = total.toFixed(2) + "<span>$</span>"
 }
 
-function editarProducto(button) {
-    boxData = button.parentNode.parentNode.childNodes[3];
-    var id = boxData.parentNode.childNodes[1].childNodes[5].value
+var img
 
-    var img = boxData.parentNode.childNodes[1].childNodes[3].value
-    var nombre = boxData.childNodes[1].childNodes[3].textContent
-    var tipo = boxData.childNodes[3].childNodes[3].textContent
-    var precio = boxData.childNodes[5].childNodes[3].textContent
-    var descripcion = boxData.childNodes[7].childNodes[3].textContent
+function editarProducto(button) {
+
+    var id = button
+    img = $("#img" + button)[0].src
+    var nombre = $("#nombre" + button)[0].innerText
+    var tipo = $("#tipo" + button)[0].innerText
+    var precio = $("#precio" + button)[0].innerText
+    var descripcion = $("#descripcion" + button)[0].innerText
 
     $('#uploadFormEdit + img').remove();
     $('#uploadFormEdit').after('<img src="' + img + '" style="width: 200px; height: 200px;">');
-
     $("#editNombre").val(nombre)
     $("#editTipo").val(tipo)
     $("#editPrecio").val(precio)
     $("#editDescripcion").val(descripcion)
     $("#idDelete").val(id)
-
+    $("#file-image-edit").val(toString(img))
 }
 
 function cleanPreview() {
@@ -95,29 +95,46 @@ function cleanPreview() {
     $('#uploadFormSave').after('<img src="/proyecto_2/assets/img/preview.png" style="width: 200px; height: 200px;">');
 }
 
+var allowedExtensions = /(.jpg|.jpeg|.png|.gif)$/i;
+
 function filePreviewSave(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.readAsDataURL(input.files[0]);
-        reader.onload = function(e) {
-            $('#uploadFormSave + img').remove();
-            $('#uploadFormSave').after('<img src="' + e.target.result + '" style="width: 200px; height: 200px;" />');
+
+    if (!allowedExtensions.exec($(input).val())) {
+
+        alert('Archivos permitidos .jpeg/.jpg/.png/.gif only.');
+        $(input).val('')
+        return false;
+    } else {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.readAsDataURL(input.files[0]);
+            reader.onload = function(e) {
+                $('#uploadFormSave + img').remove();
+                $('#uploadFormSave').after('<img src="' + e.target.result + '" style="width: 200px; height: 200px;" />');
+            }
         }
     }
-    input.files = null
 }
 
 function filePreviewEdit(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.readAsDataURL(input.files[0]);
-        reader.onload = function(e) {
-            $('#uploadFormEdit + img').remove();
-            $('#uploadFormEdit').after('<img src="' + e.target.result + '" style="width: 200px; height: 200px;" />');
-            $('#file-image-edit').load(e.target.result);
+
+    if (!allowedExtensions.exec($(input).val())) {
+
+        alert('Archivos permitidos .jpeg/.jpg/.png/.gif .');
+        $(input).val('')
+        return false;
+    } else {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.readAsDataURL(input.files[0]);
+            reader.onload = function(e) {
+                $('#uploadFormEdit + img').remove();
+                $('#uploadFormEdit').after('<img src="' + e.target.result + '" style="width: 200px; height: 200px;" />');
+                $('#file-image-edit').load(e.target.result);
+            }
         }
     }
-    input.files = null
 }
 
 $("#file-image-save").change(function() {
@@ -127,3 +144,7 @@ $("#file-image-save").change(function() {
 $("#file-image-edit").change(function() {
     filePreviewEdit(this);
 });
+
+function clealPreview() {
+    $("#file-image-edit").val('')
+}

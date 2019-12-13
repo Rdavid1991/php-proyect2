@@ -25,40 +25,52 @@ session_start();
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="<?php echo constant('home'); ?>">
-      <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="Proy 2">
-    </a>
-
-    <div class="row">
-      <div class="col float-left">
-        <ul class="navbar-nav">
-          <?php if (isset($_SESSION["usuario_valido"]) && $_SESSION['role'] == "admin") { ?>
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo constant('mantenimiento'); ?>">Mantenimiento</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo constant('reporte'); ?>">Reporte</a>
-            </li>
-          <?php } ?>
-        </ul>
+  <nav class="navbar  navbar-light bg-light">
+    <div class="row" style="width: 100%">
+      <div class="col-2">
+        <a class="navbar-brand" href="<?php echo constant('home'); ?>">
+          <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="Proy 2">
+        </a>
       </div>
 
-      <div class=" col float-right">
-        <ul class="navbar-nav">
-          <?php if (isset($_SESSION["usuario_valido"])) { ?>
-            <li class="nav-item">
+      <div class="col-5">
+        <div class="float-left">
+          <div class="d-flex justify-content-between">
+            <?php if (isset($_SESSION["usuario_valido"]) && $_SESSION['role'] == "admin") { ?>
+
+              <a class="nav-link" href="<?php echo constant('mantenimiento'); ?>">Mantenimiento</a>
+
+
+              <a class="nav-link" href="<?php echo constant('reporte'); ?>">Reporte</a>
+
+            <?php } ?>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-5">
+        <div class="float-right">
+          <div class="d-flex justify-content-between">
+            <?php if (isset($_SESSION["usuario_valido"])) { ?>
+
               <a class="nav-link" href="<?php echo constant('logout'); ?>">logout</a>
-            </li>
-          <?php } else { ?>
-            <li class="nav-item">
+
+            <?php } else { ?>
+
               <a class="nav-link" href="<?php echo constant('login'); ?>">Login</a>
-            </li>
-            <li class="nav-item">
+
               <a class="nav-link" href="<?php echo constant('registrar'); ?>">Registrar</a>
-            </li>
-          <?php } ?>
-        </ul>
+
+            <?php } ?>
+          </div>
+
+        </div>
       </div>
     </div>
+
+
+
+
+
+
   </nav>

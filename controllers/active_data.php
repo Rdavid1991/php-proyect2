@@ -8,5 +8,5 @@ if (array_key_exists("id", $_GET)){
     $prod = new Update_Products();
     $prod->active_product($id);
 
-    header('Location:/proyecto_2/views/mantenimiento.php');
+    header('Location:/proyecto_2/views/archivados.php');
 }

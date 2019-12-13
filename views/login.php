@@ -24,9 +24,10 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
         $usuario_valido = $usuario;
 
         $obj_usuarios = new usuarios();
-        $role = $obj_usuarios->verificar_usuario($usuario);
+        $user = $obj_usuarios->verificar_usuario($usuario);
 
-        $_SESSION["role"] =$role[0]['role'];
+        $_SESSION["role"] =$user[0]['role'];
+        $_SESSION["id"] =$user[0]['id'];
         $_SESSION["usuario_valido"] = $usuario_valido;
     }
 }

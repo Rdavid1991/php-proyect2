@@ -76,7 +76,7 @@ DROP PROCEDURE IF EXISTS `consultar_productos`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_productos`()
     NO SQL
-select * from producto where state = 0//
+select * from producto where state = 0 order by tipo_prod//
 DELIMITER ;
 
 -- Volcando estructura para procedimiento proyecto_2_php.consultar_productos_archivados
@@ -154,11 +154,12 @@ CREATE TABLE IF NOT EXISTS `empleado` (
 DROP PROCEDURE IF EXISTS `insertar_producto`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_producto`(
-	IN `nombre` VARCHAR(10),
+	IN `nombre` VARCHAR(100),
 	IN `imagen` VARCHAR(15),
 	IN `descripcion` VARCHAR(150),
 	IN `tipo` VARCHAR(10),
 	IN `precio` VARCHAR(10)
+
 
 )
     NO SQL
@@ -185,36 +186,31 @@ DELIMITER ;
 DROP TABLE IF EXISTS `producto`;
 CREATE TABLE IF NOT EXISTS `producto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre_prod` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre_prod` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
   `imagen_prod` varchar(15) COLLATE utf8mb4_spanish_ci NOT NULL,
   `descripcion_prod` varchar(150) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `tipo_prod` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '' COMMENT 'Combo, Individual',
   `precio_prod` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
   `state` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci COMMENT='Contiene los datos de los productos a vender';
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci COMMENT='Contiene los datos de los productos a vender';
 
 -- La exportación de datos fue deseleccionada.
 
--- Volcando estructura para procedimiento proyecto_2_php.reporte
-DROP PROCEDURE IF EXISTS `reporte`;
+-- Volcando estructura para procedimiento proyecto_2_php.save_sales
+DROP PROCEDURE IF EXISTS `save_sales`;
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `reporte`()
-BEGIN
-
-
-END//
-DELIMITER ;
-
--- Volcando estructura para procedimiento proyecto_2_php.save_ventas
-DROP PROCEDURE IF EXISTS `save_ventas`;
-DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `save_ventas`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `save_sales`(
 	IN `id_param` INT,
 	IN `precio_param` DOUBLE
+
+
+,
+	IN `id_user_param` INT
+
 )
 BEGIN
-	insert into ventas_empleado (id_producto, precio, fecha) value (id_param, precio_param, (SELECT NOW()));
+	insert into ventas_empleado (id_producto,id_empleado, precio, fecha) value (id_param,id_user_param, precio_param, (SELECT NOW()));
 END//
 DELIMITER ;
 
@@ -223,11 +219,12 @@ DROP PROCEDURE IF EXISTS `update_producto`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `update_producto`(
 	IN `param_id` INT,
-	IN `nombre` VARCHAR(10),
+	IN `nombre` VARCHAR(100),
 	IN `imagen` VARCHAR(15),
 	IN `descripcion` VARCHAR(150),
 	IN `tipo` VARCHAR(10),
 	IN `precio` VARCHAR(10)
+
 
 
 
@@ -281,9 +278,10 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `verificar_usuario`(
 	IN `user_param` VARCHAR(50)
 
+
 )
 BEGIN
-	select role from empleado where nombre_empleado = user_param;
+	select id, role from empleado where nombre_empleado = user_param;
 END//
 DELIMITER ;
 

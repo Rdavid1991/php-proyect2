@@ -1,5 +1,7 @@
 <?php
 define('save', '/proyecto_2/controllers/save_acount.php');
+
+
 //print_r($_POST);
 $array = array();
 $total = 0;
@@ -9,6 +11,9 @@ foreach ($_POST as $value) {
 }
 
 require('./main/header.php');
+
+if (isset($_SESSION["usuario_valido"])) {
+
 ?>
 <div class="d-flex justify-content-center mt-3">
     <div class="card" style="width: 30rem">
@@ -34,7 +39,7 @@ require('./main/header.php');
                                     </td>
                                     <td class="text-right">
                                         <?php print($array[$i + 1]); ?>
-                                        <input type="hidden" name="precio<?php echo $i ?>" value="<?php print($array[$i + 1]); ?>">
+                                        <input type="hidden" name="precio<?php echo $i ?>" value="<?php print($array[$i + 1]); ?>"><span>$</span>
                                     </td>
                                 </tr>
                             <?php
@@ -43,7 +48,7 @@ require('./main/header.php');
                             ?>
                              <tr>
                                  <th>Total a pagar</th>
-                                 <th><?php echo $total ?></th>
+                                 <th><?php echo $total ?><span>$</span></th>
                             </tr>
                         </tbody>
                     </table>
@@ -56,4 +61,7 @@ require('./main/header.php');
     </div>
 </div>
 
-<?php require('./main/footer.php'); ?>
+<?php require('./main/footer.php'); 
+}else{
+    header("location:login.php");
+}?>

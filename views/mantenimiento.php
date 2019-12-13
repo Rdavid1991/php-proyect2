@@ -35,7 +35,7 @@ if (isset($_SESSION["usuario_valido"]) && $_SESSION['role'] == "admin") {
 
         .swiper-slide {
             text-align: center;
-            font-size: 18px;
+            font-size: 12px;
             background: #fff;
             /* Center slide text vertically */
             display: -webkit-box;
@@ -75,33 +75,36 @@ if (isset($_SESSION["usuario_valido"]) && $_SESSION['role'] == "admin") {
 
                         <div class="swiper-slide">
                             <div class="m-2" style="height:30rem;">
-                                <div>
-                                    <img src="<?php echo constant('img') . $values['imagen_prod'] ?>" style="width: 15rem; height:10rem" alt="" class="img-thumbnail">
+
+                                <div class="aspect mt-4">
+                                    <img src="<?php echo constant('img') . $values['imagen_prod'] ?>" alt="" id="img<?php echo $values['id'] ?>"  class="aspect-img">
                                     <input type="hidden" value="<?php echo constant('img') . $values['imagen_prod'] ?>">
                                     <input type="hidden" value="<?php echo $values['id']  ?>">
                                 </div>
 
-                                <div class="m-4">
-                                    <div class="d-flex justify-content-between">
-                                        <p>Nombre: </p>
-                                        <p id="nombre"><?php echo $values['nombre_prod'] ?></p>
+                                <div class="absolute-desc" style="margin-left: -3rem">
+                                        <div class="mt-4" style="width: 15rem">
+                                            <div class="d-flex justify-content-between">
+                                                <p>Nombre: </p>
+                                                <p id="nombre<?php echo $values['id']  ?>"><?php echo $values['nombre_prod'] ?></p>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <p>Tipo:</p>
+                                                <p id="tipo<?php echo $values['id']  ?>"><?php echo $values['tipo_prod'] ?></p>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <p>Precio:</p>
+                                                <p id="precio<?php echo $values['id']  ?>"><?php echo $values['precio_prod'] ?></p>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <p>Descripcion:</p>
+                                                <p id="descripcion<?php echo $values['id']  ?>"><?php echo $values['descripcion_prod'] ?></p>
+                                            </div>
+                                            <div class="d-flex justify-content-between mt-5">
+                                                <a class="btn btn-primary" href="<?php echo constant('delete') . "?id=" . $values['id']; ?>">Archivar</a>
+                                                <button class="btn btn-primary" data-toggle="modal"  data-target="#modalEditar" onclick="editarProducto(<?php echo $values['id']  ?>)">Editar</button>
+                                            </div>
                                     </div>
-                                    <div class="d-flex justify-content-between">
-                                        <p>Tipo:</p>
-                                        <p id="tipo"><?php echo $values['tipo_prod'] ?></p>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <p>Precio:</p>
-                                        <p id="precio"><?php echo $values['precio_prod'] ?></p>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <p>Descripcion:</p>
-                                        <p id="descripcion"><?php echo $values['descripcion_prod'] ?></p>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <a class="btn btn-primary" href="<?php echo constant('delete') . "?id=" . $values['id']; ?>">Borrar</a>
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#modalEditar" onclick="editarProducto(this)">Editar</button>
                                 </div>
                             </div>
                         </div>

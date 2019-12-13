@@ -1,4 +1,4 @@
-.input_class{
+.input_class {
     width: 5rem;
     text-align: center;
     border: none;
@@ -7,26 +7,43 @@
     margin-bottom: 10px;
 }
 
-
-.border_rounded{
+.border_rounded {
     border-radius: 36px 36px 36px 36px;
     -moz-border-radius: 36px 36px 36px 36px;
     -webkit-border-radius: 36px 36px 36px 36px;
 }
 
-.preview-position{
+.preview-position {
     width: 20rem;
     height: 20rem;
     position: absolute;
     margin-left: 21rem;
 }
 
-th{
+th {
     width: 15rem;
     font-size: 24px
 }
 
-td{
+td {
     font-size: 18px;
 }
 
+.aspect {
+    height: 20px;
+    padding-bottom: 80%;
+}
+
+.aspect-img {
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 9rem;
+    margin: auto;
+}
+
+.absolute-desc {
+    position: absolute;
+    margin-top: 3rem;
+}

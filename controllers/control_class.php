@@ -2,6 +2,7 @@
 include("../class/lib_class.php");
 include("../helpers/helpers.php");
 
+
 class Save_Class
 {
     function save($file, $post)
@@ -77,11 +78,12 @@ class Acount_Class
             array_push($array, $value);
         }
 
+        session_start();
         for ($i = 0; $i < sizeof($array); $i++) {
             if ($i % 2 == 0) {
                 if ($array[$i + 1] != 0) {
                     $prod = new Save_Products();
-                    $prod->save_product_acount($array[$i], $array[$i + 1]);
+                    $prod->save_product_acount($array[$i], $array[$i + 1],$_SESSION['id']);
                 }
             }
         }
