@@ -35,6 +35,16 @@ define('edit', '/proyecto_2/controllers/edit_data.php');
                         </div>
 
                         <div class="form-group">
+                            <select name="categoria" class="form-control">
+                                <option value="Popcorn">Popcorn</option>
+                                <option value="Chocolate">Chocolate</option>
+                                <option value="Soda">Soda</option>
+                                <option value="Nachos">Nachos</option>
+                                <option value="HotDog">HotDog</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="">Descripcion</label>
                             <textarea class="form-control" name="descripcion" id="" cols="10" rows="5"></textarea>
                         </div>
@@ -70,7 +80,7 @@ define('edit', '/proyecto_2/controllers/edit_data.php');
                 <div class="modal-body" style="width: 23rem;">
                     <div class="input-group ">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="file-image-edit" onchange="filePreview(this)" name="imagen" >
+                            <input type="file" class="custom-file-input" id="file-image-edit" onchange="filePreview(this)" name="imagen">
                             <label class="custom-file-label" for="file-image">Seleccione un archivo</label>
                             <input type="hidden" id="idDelete" name="idDelete" value="">
                         </div>
@@ -84,6 +94,16 @@ define('edit', '/proyecto_2/controllers/edit_data.php');
                     <div class="form-group">
                         <label for="">Precio</label>
                         <input class="form-control" type="text" name="precio" id="editPrecio" placeholder="Ingrese un precio" required>
+                    </div>
+
+                    <div class="form-group" >
+                        <select name="categoria" id="editTipo" class="form-control">
+                            <option value="Popcorn">Popcorn</option>
+                            <option value="Chocolate">Chocolate</option>
+                            <option value="Soda">Soda</option>
+                            <option value="Nachos">Nachos</option>
+                            <option value="HotDog">HotDog</option>
+                        </select>
                     </div>
 
                     <div class="form-group">

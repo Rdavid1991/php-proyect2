@@ -38,7 +38,8 @@ function comprar(val, id) {
     node_borrar.addEventListener("click", function() {
         var element = document.getElementById("cuenta_" + this.id).parentNode;
         delete_node = document.getElementById("cuenta_" + this.id)
-        total -= delete_node.childNodes[3].textContent;
+        total -= $("#" + id).val();
+
         document.getElementById("total").innerHTML = total.toFixed(2) + " $"
         element.removeChild(delete_node);
     })
@@ -53,6 +54,7 @@ function comprar(val, id) {
     var precio_hidden = document.createElement("input");
     precio_hidden.setAttribute("name", "precio" + countprod);
     precio_hidden.setAttribute("type", "hidden");
+    precio_hidden.setAttribute("id", id);
     precio_hidden.setAttribute("value", precio);
 
     var node_precio = document.createElement("h5")
@@ -81,7 +83,7 @@ function editarProducto(button) {
     $('#uploadFormEdit').after('<img src="' + img + '" style="width: 200px; height: 200px;">');
 
     $("#editNombre").val(nombre)
-        //document.getElementById("editTipo").value = tipo
+    $("#editTipo").val(tipo)
     $("#editPrecio").val(precio)
     $("#editDescripcion").val(descripcion)
     $("#idDelete").val(id)
@@ -112,6 +114,7 @@ function filePreviewEdit(input) {
         reader.onload = function(e) {
             $('#uploadFormEdit + img').remove();
             $('#uploadFormEdit').after('<img src="' + e.target.result + '" style="width: 200px; height: 200px;" />');
+            $('#file-image-edit').load(e.target.result);
         }
     }
     input.files = null

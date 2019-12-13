@@ -9,7 +9,7 @@ class Save_Class
         //save data of products
         $nombre = $post['nombre'];
         $descripcion = $post['descripcion'];
-        $tipo = "combo"; //$post['tipo'];
+        $tipo = $post['categoria']; //$post['tipo'];
         $precio = $post['precio'];
 
         //create directory if doesn't existe
@@ -40,9 +40,11 @@ class Edit_Class
         //save data of products
         $nombre = $post['nombre'];
         $descripcion = $post['descripcion'];
-        $tipo = "combo"; //$post['tipo'];
+        $tipo = $post['categoria']; //$post['tipo'];
         $precio = $post['precio'];
         $id = $post['idDelete'];
+
+        echo $tipo .$precio;
 
         $consultImg = new Productos();
         $imgDelete = $consultImg->consult_image_name($id);
@@ -62,7 +64,6 @@ class Edit_Class
 
         //save file in directory with the new name
         move_uploaded_file($file['imagen']['tmp_name'],  $dir . $fileName);
-        header('Location:/proyecto_2/views/mantenimiento.php');
     }
 }
 
@@ -70,7 +71,6 @@ class Acount_Class
 {
     function save($post)
     {
-
         $array = array();
 
         foreach ($_POST as $value) {
@@ -79,8 +79,10 @@ class Acount_Class
 
         for ($i = 0; $i < sizeof($array); $i++) {
             if ($i % 2 == 0) {
-                $prod = new Save_Products();
-                $prod->save_product_acount($array[$i], $array[$i + 1]);
+                if ($array[$i + 1] != 0) {
+                    $prod = new Save_Products();
+                    $prod->save_product_acount($array[$i], $array[$i + 1]);
+                }
             }
         }
     }

@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.4.8-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win64
--- HeidiSQL Version:             10.2.0.5599
+-- Versión del servidor:         10.4.8-MariaDB - mariadb.org binary distribution
+-- SO del servidor:              Win64
+-- HeidiSQL Versión:             10.2.0.5599
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -12,12 +12,12 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- Dumping database structure for proyecto_2_php
+-- Volcando estructura de base de datos para proyecto_2_php
 DROP DATABASE IF EXISTS `proyecto_2_php`;
 CREATE DATABASE IF NOT EXISTS `proyecto_2_php` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci */;
 USE `proyecto_2_php`;
 
--- Dumping structure for procedure proyecto_2_php.active_product
+-- Volcando estructura para procedimiento proyecto_2_php.active_product
 DROP PROCEDURE IF EXISTS `active_product`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `active_product`(
@@ -30,7 +30,7 @@ UPDATE producto
 END//
 DELIMITER ;
 
--- Dumping structure for procedure proyecto_2_php.archive_product
+-- Volcando estructura para procedimiento proyecto_2_php.archive_product
 DROP PROCEDURE IF EXISTS `archive_product`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `archive_product`(
@@ -46,7 +46,7 @@ UPDATE producto
 END//
 DELIMITER ;
 
--- Dumping structure for procedure proyecto_2_php.consultar_nombre
+-- Volcando estructura para procedimiento proyecto_2_php.consultar_nombre
 DROP PROCEDURE IF EXISTS `consultar_nombre`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_nombre`(
@@ -71,7 +71,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure proyecto_2_php.consultar_productos
+-- Volcando estructura para procedimiento proyecto_2_php.consultar_productos
 DROP PROCEDURE IF EXISTS `consultar_productos`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_productos`()
@@ -79,7 +79,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_productos`()
 select * from producto where state = 0//
 DELIMITER ;
 
--- Dumping structure for procedure proyecto_2_php.consultar_productos_archivados
+-- Volcando estructura para procedimiento proyecto_2_php.consultar_productos_archivados
 DROP PROCEDURE IF EXISTS `consultar_productos_archivados`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_productos_archivados`()
@@ -87,7 +87,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_productos_archivados`()
 select * from producto where state = 1//
 DELIMITER ;
 
--- Dumping structure for procedure proyecto_2_php.consultar_tipo
+-- Volcando estructura para procedimiento proyecto_2_php.consultar_tipo
 DROP PROCEDURE IF EXISTS `consultar_tipo`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_tipo`(
@@ -113,7 +113,7 @@ GROUP BY pd.tipo_prod,ve.precio;
 END//
 DELIMITER ;
 
--- Dumping structure for procedure proyecto_2_php.consult_image_name
+-- Volcando estructura para procedimiento proyecto_2_php.consult_image_name
 DROP PROCEDURE IF EXISTS `consult_image_name`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `consult_image_name`(
@@ -123,7 +123,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `consult_image_name`(
 select imagen_prod from producto where id = id_param//
 DELIMITER ;
 
--- Dumping structure for procedure proyecto_2_php.delete_producto
+-- Volcando estructura para procedimiento proyecto_2_php.delete_producto
 DROP PROCEDURE IF EXISTS `delete_producto`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_producto`(
@@ -138,19 +138,19 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for table proyecto_2_php.empeado
-DROP TABLE IF EXISTS `empeado`;
-CREATE TABLE IF NOT EXISTS `empeado` (
+-- Volcando estructura para tabla proyecto_2_php.empleado
+DROP TABLE IF EXISTS `empleado`;
+CREATE TABLE IF NOT EXISTS `empleado` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_empleado` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '0',
   `password_empleado` varchar(250) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '0',
   `role` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
--- Data exporting was unselected.
+-- La exportación de datos fue deseleccionada.
 
--- Dumping structure for procedure proyecto_2_php.insertar_producto
+-- Volcando estructura para procedimiento proyecto_2_php.insertar_producto
 DROP PROCEDURE IF EXISTS `insertar_producto`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_producto`(
@@ -167,7 +167,21 @@ producto (nombre_prod ,imagen_prod, descripcion_prod , tipo_prod , precio_prod)
 VALUES (nombre ,imagen, descripcion , tipo , precio)//
 DELIMITER ;
 
--- Dumping structure for table proyecto_2_php.producto
+-- Volcando estructura para procedimiento proyecto_2_php.insertar_usuario
+DROP PROCEDURE IF EXISTS `insertar_usuario`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_usuario`(
+	IN `user_param` VARCHAR(50),
+	IN `pass_param` VARCHAR(50)
+,
+	IN `role_param` VARCHAR(50)
+)
+BEGIN
+	insert into empleado (nombre_empleado,password_empleado,role) values(user_param, pass_param,role_param);
+END//
+DELIMITER ;
+
+-- Volcando estructura para tabla proyecto_2_php.producto
 DROP TABLE IF EXISTS `producto`;
 CREATE TABLE IF NOT EXISTS `producto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -178,11 +192,11 @@ CREATE TABLE IF NOT EXISTS `producto` (
   `precio_prod` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
   `state` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci COMMENT='Contiene los datos de los productos a vender';
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci COMMENT='Contiene los datos de los productos a vender';
 
--- Data exporting was unselected.
+-- La exportación de datos fue deseleccionada.
 
--- Dumping structure for procedure proyecto_2_php.reporte
+-- Volcando estructura para procedimiento proyecto_2_php.reporte
 DROP PROCEDURE IF EXISTS `reporte`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `reporte`()
@@ -192,7 +206,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure proyecto_2_php.save_ventas
+-- Volcando estructura para procedimiento proyecto_2_php.save_ventas
 DROP PROCEDURE IF EXISTS `save_ventas`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `save_ventas`(
@@ -204,7 +218,7 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for procedure proyecto_2_php.update_producto
+-- Volcando estructura para procedimiento proyecto_2_php.update_producto
 DROP PROCEDURE IF EXISTS `update_producto`;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `update_producto`(
@@ -226,7 +240,31 @@ BEGIN
 END//
 DELIMITER ;
 
--- Dumping structure for table proyecto_2_php.ventas_empleado
+-- Volcando estructura para procedimiento proyecto_2_php.validar_usuario
+DROP PROCEDURE IF EXISTS `validar_usuario`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `validar_usuario`(
+	IN `param_user` VARCHAR(50),
+	IN `param_pass` VARCHAR(50)
+
+
+
+
+
+
+
+
+)
+BEGIN
+	SET @s = CONCAT("SELECT count(*) FROM empleado 
+                WHERE nombre_empleado = '", param_user ,"' AND password_empleado = '" , param_pass,"'"); 
+         PREPARE stmt FROM @s;
+         EXECUTE stmt;
+         DEALLOCATE PREPARE stmt; 
+END//
+DELIMITER ;
+
+-- Volcando estructura para tabla proyecto_2_php.ventas_empleado
 DROP TABLE IF EXISTS `ventas_empleado`;
 CREATE TABLE IF NOT EXISTS `ventas_empleado` (
   `id_producto` int(11) NOT NULL,
@@ -235,7 +273,19 @@ CREATE TABLE IF NOT EXISTS `ventas_empleado` (
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
--- Data exporting was unselected.
+-- La exportación de datos fue deseleccionada.
+
+-- Volcando estructura para procedimiento proyecto_2_php.verificar_usuario
+DROP PROCEDURE IF EXISTS `verificar_usuario`;
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `verificar_usuario`(
+	IN `user_param` VARCHAR(50)
+
+)
+BEGIN
+	select role from empleado where nombre_empleado = user_param;
+END//
+DELIMITER ;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

@@ -10,14 +10,14 @@ foreach ($_POST as $value) {
 
 require('./main/header.php');
 ?>
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center mt-3">
     <div class="card" style="width: 30rem">
         <h5 class="card-header text-center">Cuenta</h5>
         <div class="card-body">
-            <h5 class="card-title text-center">Special title treatment</h5>
+            <h5 class="card-title text-center">Lista de productos comprados</h5>
             <div class="d-flex justify-content-center">
                 <form action="<?php echo constant('save'); ?>" method="POST">
-                    <table>
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th class="text-left"> Producto</th>
@@ -42,13 +42,13 @@ require('./main/header.php');
                             }
                             ?>
                              <tr>
-                                 <td>Total a pagar</td>
-                                 <td><?php echo $total ?></td>
+                                 <th>Total a pagar</th>
+                                 <th><?php echo $total ?></th>
                             </tr>
                         </tbody>
                     </table>
                     <div class="d-flex justify-content-around">
-                        <button type="submit">Confirmar</button>
+                        <button type="submit" class="btn btn-success">Confirmar</button>
                     </div>
                 </form>
             </div>
