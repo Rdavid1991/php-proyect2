@@ -14,10 +14,11 @@ function comprar(val, id) {
 
     var element = document.getElementById("cuenta");
 
-    var div = document.createElement("div");
-    div.setAttribute("class", "d-flex justify-content-around align-items-center");
-    div.setAttribute("id", "cuenta_" + val.id);
+    var tbody = document.createElement("tbody");
+    tbody.setAttribute("id", "cuenta_" + val.id);
 
+    var tr = document.createElement("tr")
+    var td = document.createElement("td");
     //Nodo nombre
     var nombre_hiden = document.createElement("input");
     nombre_hiden.setAttribute("name", "nombre" + countprod);
@@ -27,10 +28,14 @@ function comprar(val, id) {
     var node_nombre = document.createElement("h5")
     node_nombre.innerHTML = nombre
     node_nombre.setAttribute("class", "font-weight-bold shadow-sm bg-white rounded");
-    div.appendChild(node_nombre);
-    div.appendChild(nombre_hiden);
 
-    //node borrar
+    td.appendChild(node_nombre);
+    td.appendChild(nombre_hiden);
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+
+    td = document.createElement("td")
+        //node borrar
     var node_borrar = document.createElement("div");
     node_borrar.innerHTML = '<i class="fas fa-trash"></i>'
     node_borrar.setAttribute("id", val.id);
@@ -47,10 +52,14 @@ function comprar(val, id) {
     id_hidden.setAttribute("type", "hidden");
     id_hidden.setAttribute("name", "id" + countprod);
     id_hidden.setAttribute("value", id);
-    div.appendChild(node_borrar);
-    div.appendChild(id_hidden);
 
-    //Noddo precio
+    td.appendChild(node_borrar);
+    td.appendChild(id_hidden);
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+
+    td = document.createElement("td")
+        //Noddo precio
     var precio_hidden = document.createElement("input");
     precio_hidden.setAttribute("name", "precio" + countprod);
     precio_hidden.setAttribute("type", "hidden");
@@ -60,10 +69,13 @@ function comprar(val, id) {
     var node_precio = document.createElement("h5")
     node_precio.innerHTML = precio + "<span>$</span>";
     node_precio.setAttribute("class", "font-weight-bold shadow-sm bg-white rounded");
-    div.appendChild(node_precio);
-    div.appendChild(precio_hidden);
 
-    element.appendChild(div);
+    td.appendChild(node_precio);
+    td.appendChild(precio_hidden);
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+
+    element.appendChild(tbody);
     countprod += 1;
     total += parseFloat(precio);
     document.getElementById("total").innerHTML = total.toFixed(2) + "<span>$</span>"

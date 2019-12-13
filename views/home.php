@@ -56,7 +56,7 @@ if (isset($_SESSION["usuario_valido"])) {
             align-items: center;
         }
 
-        .font-weight-bold{
+        .font-weight-bold {
             font-size: 18px;
         }
     </style>
@@ -64,7 +64,7 @@ if (isset($_SESSION["usuario_valido"])) {
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col-9 mt-2">
+            <div class="col-8 mt-2">
                 <div class="swiper-container mt-2">
                     <div class="swiper-wrapper">
                         <?php
@@ -74,48 +74,60 @@ if (isset($_SESSION["usuario_valido"])) {
                                 <div class="swiper-slide  border_rounded" id="box<?php echo $code ?>" onclick="comprar(this, <?php echo $values['id'] ?>)">
                                     <div class="m-1"">
                                         <div class="">
-                                            <img src="<?php echo constant('index_img') . $values['imagen_prod'] ?>" class="aspect-img m-2">
-                                        </div>
-                                        <div class="m-1" style="width: 17rem;">
-                                            <div class="d-flex justify-content-between">
-                                                <p class="font-weight-bold" id="producto<?php echo $values['id'] ?>"><?php echo $values['nombre_prod'] ?></p>
-                                                <p class="font-weight-bold" id="precio<?php echo $values['id'] ?>"><?php echo $values['precio_prod'] ?></p>
+                                            <img src=" <?php echo constant('index_img') . $values['imagen_prod'] ?>" class="aspect-img m-2">
+                                    </div>
+                                    <div class="m-1" style="width: 15rem;">
+                                        <div class="d-flex justify-content-between">
+                                            <p class="font-weight-bold" id="producto<?php echo $values['id'] ?>"><?php echo $values['nombre_prod'] ?></p>
+                                            <p class="font-weight-bold" id="precio<?php echo $values['id'] ?>"><?php echo $values['precio_prod'] ?></p>
 
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <p class="font-weight-bold" ><?php echo $values['descripcion_prod'] ?></p>
-                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <p class="font-weight-bold"><?php echo $values['descripcion_prod'] ?></p>
                                         </div>
                                     </div>
                                 </div>
-                        <?php $code += 1;
-                                }
-                            } ?>
                     </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
-                    <!-- Add Arrows -->
-                    <!--<div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div> -->
+            <?php $code += 1;
+                    }
+                } ?>
                 </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Add Arrows -->
+                <!--<div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div> -->
             </div>
-
-            <div class="col-3 mt-2 text-center">
-                <h4 class="text-center">Cuenta</h4>
-                <form action="cuenta.php" id="cuenta" method="post">
-                    <div class="input-group d-flex justify-content-between">
-                        <input type="submit" class="btn btn-success" value="Confirmar">
-                        <label class="font-weight-bold">Total</label>
-                        <label class="font-weight-bold" id="total">0.00 $</label>
-                    </div>
-                    <div class="d-flex justify-content-around mt-3">
-                        <h4 class="font-weight-bold">Producto</h4>
-                        <h4 class="font-weight-bold">Precio</h4>
-                    </div>
-                </form>
-            </div>
-
         </div>
+
+        <div class="col-4 mt-2 text-center">
+            <h4 class="text-center">Cuenta</h4>
+            <form action="cuenta.php"  method="post">
+
+
+                <div class="input-group d-flex justify-content-between">
+                    <input type="submit" class="btn btn-success" value="Confirmar">
+                    <label class="font-weight-bold">Total</label>
+                    <label class="font-weight-bold" id="total">0.00 $</label>
+                </div>
+
+                <table id="cuenta">
+                    <thead >
+                        <tr>
+                            <th>
+                                <h4 class="font-weight-bold">Producto</h4>
+                            </th>
+                            <th></th>
+                            <th>
+                                <h4 class="font-weight-bold">Precio</h4>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </form>
+        </div>
+
+    </div>
 
 
     </div>
